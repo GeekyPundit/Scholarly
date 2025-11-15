@@ -6,26 +6,17 @@
 
 ---
 
-## Summary
-Scholarly is an AI-powered academic assistant built to simplify complex academic processes for students across India. Using multilingual NLP, OCR processing, and guided workflows, Scholarly converts confusing academic documents and rules into clear, actionable information in multiple Indian languages.
+# What is the problem?
+Students face confusion and frustration when dealing with academic forms, exam procedures, scholarship PDFs, and institutional notices because everything is written in complex, formal English.
+This causes:
 
----
+mistakes in form submissions
 
-# The Problem Scholarly Solves
-Scholarly is designed specifically for students navigating complex academic systems, but it can also support colleges, institutions, and scholarship bodies.
+missed deadlines & lost opportunities
 
-Some of the use cases are:
+repeated visits to administrative offices
 
-- Helping students understand exam form instructions. Most exam forms are written in complex English, making it difficult for students—especially non-English-medium learners—to know what to fill. Scholarly explains every field clearly in the student’s preferred language, in real time.
-
-- Providing guided workflows for academic processes. For example, if a student is confused about the re-evaluation process, Scholarly generates a complete step-by-step guide on what to do next.
-
-- Clarifying scholarship eligibility. Scholarly reads uploaded scholarship PDFs using OCR and simplifies the entire document into bullet points.
-
-- Integrating inside college portals to make notices, forms, and guidelines understandable. It detects key instructions and highlights important actions.
-
-- Powering student service kiosks to offer multilingual academic assistance, especially for first-generation and vernacular-medium students.
-
+extra difficulty for non-English-medium and first-generation learners
 ---
 
 # What Problem Does Scholarly Actually Solve?
