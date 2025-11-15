@@ -12,7 +12,6 @@ def init_db():
     conn = get_db()
     cursor = conn.cursor()
 
-    # Users table
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
         id TEXT PRIMARY KEY,
@@ -22,7 +21,6 @@ def init_db():
     )
     """)
 
-    # Sessions table
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS sessions (
         session_id TEXT PRIMARY KEY,

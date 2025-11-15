@@ -208,8 +208,9 @@ const Chat = () => {
         <Card className="pixel-border flex-1 flex flex-col">
           {/* Header */}
           <div className="p-4 border-b">
-            <MinecraftHeading className="text-lg">
-              Helix
+            <MinecraftHeading className="text-lg flex items-center gap-2">
+              <img src="/mooshroom.png" alt="Mooshroom" className="h-6 w-6" />
+              Mooshroom
             </MinecraftHeading>
           </div>
 
@@ -219,7 +220,7 @@ const Chat = () => {
               <div className="h-full flex flex-col items-center justify-center text-center space-y-6">
                 <MessageSquare className="h-16 w-16 text-muted-foreground" />
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">Start a conversation with Helix</h3>
+                  <h3 className="text-lg font-semibold mb-2">Start a conversation with Mooshroom</h3>
                   <p className="text-muted-foreground mb-6">
                     Ask any question about technology or programming
                   </p>
