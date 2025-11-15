@@ -17,7 +17,6 @@ interface ExtractedData {
 }
 
 const INDIAN_LANGUAGES = [
-  "English",
   "Assamese",
   "Bengali",
   "Bodo",
@@ -55,7 +54,7 @@ const OCR = () => {
   const [isPopupTyping, setIsPopupTyping] = useState(false);
   const [isExplaining, setIsExplaining] = useState(false);
   const [showLanguageDialog, setShowLanguageDialog] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState<string>("English");
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("Hindi");
   const [pendingAction, setPendingAction] = useState<"explain" | "summarize" | null>(null);
 
   useEffect(() => {
@@ -142,8 +141,10 @@ const OCR = () => {
   };
 
   const handleExplain = async () => {
+    console.log("handleExplain called");
     setPendingAction("explain");
     setShowLanguageDialog(true);
+    console.log("Language dialog should now be visible");
   };
 
   const executeExplain = async (language: string) => {
@@ -194,8 +195,10 @@ const OCR = () => {
   };
 
   const handleSummarize = async () => {
+    console.log("handleSummarize called");
     setPendingAction("summarize");
     setShowLanguageDialog(true);
+    console.log("Language dialog should now be visible");
   };
 
   const executeSummarize = async (language: string) => {
@@ -460,7 +463,7 @@ const OCR = () => {
 
       {/* Language Selection Dialog */}
       <Dialog open={showLanguageDialog} onOpenChange={setShowLanguageDialog}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md z-50">
           <DialogHeader>
             <DialogTitle>Select Language</DialogTitle>
             <DialogDescription>
