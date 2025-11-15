@@ -1,0 +1,13 @@
+
+{
+  "manifest_version": 3,
+  "name": "Scholarly Extension",
+  "version": "1.0",
+  "description": "Translate any webpage to selected language.",
+  "permissions": ["storage", "scripting", "activeTab"],
+  "action": { "default_popup": "popup.html" },
+  "background": { "service_worker": "service_worker.js" },
+  "content_scripts": [
+    { "matches": ["<all_urls>"], "js": ["content.js"], "run_at": "document_end" }
+  ]
+}
