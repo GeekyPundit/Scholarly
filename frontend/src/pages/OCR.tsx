@@ -115,6 +115,11 @@ const OCR = () => {
     return () => clearInterval(typingInterval);
   }, [popupContent]);
 
+  // Debug language dialog changes
+  useEffect(() => {
+    console.log("showLanguageDialog changed to:", showLanguageDialog);
+  }, [showLanguageDialog]);
+
   const handleFilesAdded = (newFiles: File[]) => {
     setFiles(newFiles);
     setError("");
@@ -159,11 +164,13 @@ const OCR = () => {
     }
   };
 
-  const handleExplain = async () => {
+  const handleExplain = () => {
     console.log("handleExplain called");
+    console.log("Current showLanguageDialog:", showLanguageDialog);
+    console.log("Current pendingAction:", pendingAction);
     setPendingAction("explain");
     setShowLanguageDialog(true);
-    console.log("Language dialog should now be visible");
+    console.log("After setState - Language dialog should now be visible");
   };
 
   const executeExplain = async (language: string) => {
@@ -214,11 +221,13 @@ const OCR = () => {
     }
   };
 
-  const handleSummarize = async () => {
+  const handleSummarize = () => {
     console.log("handleSummarize called");
+    console.log("Current showLanguageDialog:", showLanguageDialog);
+    console.log("Current pendingAction:", pendingAction);
     setPendingAction("summarize");
     setShowLanguageDialog(true);
-    console.log("Language dialog should now be visible");
+    console.log("After setState - Language dialog should now be visible");
   };
 
   const executeSummarize = async (language: string) => {
