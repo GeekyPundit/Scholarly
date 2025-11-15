@@ -2,31 +2,14 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
-import { Send, MessageSquare, Loader2, Trash2 } from "lucide-react";
+import { Send, MessageSquare, Loader2 } from "lucide-react";
 import { MinecraftHeading } from "@/components/MinecraftHeading";
 import { useAuth } from "@/contexts/AuthContext";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
   created_at?: string;
-}
-
-interface ChatHistoryMessage {
-  id: number;
-  message: string;
-  sender: string;
-  timestamp: number;
 }
 
 const MAX_PROMPT_LENGTH = 2000;
@@ -38,8 +21,6 @@ const Chat = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [typingMessageId, setTypingMessageId] = useState<number | null>(null);
   const [chatApiUrl, setChatApiUrl] = useState<string>("");
-  const [backendUrl, setBackendUrl] = useState<string>("");
-  const [isLoadingHistory, setIsLoadingHistory] = useState(false);
 
   useEffect(() => {
     const loadConfig = async () => {
@@ -50,9 +31,6 @@ const Chat = () => {
           if (config.localapi) {
             setChatApiUrl(config.localapi);
           }
-          if (config.backend) {
-            setBackendUrl(config.backend);
-          }
         }
       } catch (error) {
         console.error("Failed to load config:", error);
@@ -60,80 +38,6 @@ const Chat = () => {
     };
     loadConfig();
   }, []);
-
-  // Load chat history when user is authenticated
-  useEffect(() => {
-    if (user && backendUrl) {
-      loadChatHistory();
-    }
-  }, [user, backendUrl]);
-
-  const loadChatHistory = async () => {
-    setIsLoadingHistory(true);
-    try {
-      const response = await fetch(`${backendUrl}/chat/history`, {
-        method: "GET",
-        credentials: "include",
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        const historyMessages: Message[] = data.chat_history.map(
-          (msg: ChatHistoryMessage) => ({
-            role: msg.sender === "user" ? "user" : "assistant",
-            content: msg.message,
-            created_at: new Date(msg.timestamp * 1000).toISOString(),
-          })
-        );
-        setMessages(historyMessages);
-      } else {
-        console.error("Failed to load chat history:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error loading chat history:", error);
-    } finally {
-      setIsLoadingHistory(false);
-    }
-  };
-
-  const saveChatMessage = async (message: string, sender: "user" | "assistant") => {
-    try {
-      const response = await fetch(`${backendUrl}/chat/message`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          message,
-          sender,
-        }),
-      });
-
-      if (!response.ok) {
-        console.error("Failed to save chat message:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error saving chat message:", error);
-    }
-  };
-
-  const deleteChatHistory = async () => {
-    try {
-      const response = await fetch(`${backendUrl}/chat/history`, {
-        method: "DELETE",
-        credentials: "include",
-      });
-
-      if (response.ok) {
-        setMessages([]);
-      } else {
-        console.error("Failed to delete chat history:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error deleting chat history:", error);
-    }
-  };
 
   const examplePrompts = [
     "What are the latest programming trends?",
@@ -174,9 +78,6 @@ const Chat = () => {
     setInput("");
     setIsLoading(true);
 
-    // Save user message to database
-    await saveChatMessage(promptText, "user");
-
     try {
       const response = await fetch(`${chatApiUrl}chat`, {
         method: "POST",
@@ -206,9 +107,6 @@ const Chat = () => {
       
       const newMessageId = messages.length + 1;
       await typeMessage(newMessageId, responseText);
-
-      // Save assistant message to database
-      await saveChatMessage(responseText, "assistant");
       
     } catch (error) {
       console.error("Chat error:", error);
@@ -225,9 +123,6 @@ const Chat = () => {
       
       const newMessageId = messages.length + 1;
       await typeMessage(newMessageId, errorText);
-
-      // Save error message to database
-      await saveChatMessage(errorText, "assistant");
     }
   };
 
@@ -312,34 +207,11 @@ const Chat = () => {
       <div className="flex-1 flex flex-col">
         <Card className="pixel-border flex-1 flex flex-col">
           {/* Header */}
-          <div className="p-4 border-b flex items-center justify-between">
+          <div className="p-4 border-b">
             <MinecraftHeading className="text-lg flex items-center gap-2">
               <img src="/mooshroom.png" alt="Mooshroom" className="h-6 w-6" />
               Mooshroom
             </MinecraftHeading>
-            {messages.length > 0 && (
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-8 w-8">
-                    <Trash2 className="h-4 w-4 text-destructive" />
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Delete Chat History</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      Are you sure you want to delete all your chat history? This action cannot be undone.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <div className="flex gap-3 justify-end">
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={deleteChatHistory} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-                      Delete
-                    </AlertDialogAction>
-                  </div>
-                </AlertDialogContent>
-              </AlertDialog>
-            )}
           </div>
 
           {/* Messages */}
