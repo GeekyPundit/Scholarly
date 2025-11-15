@@ -41,7 +41,6 @@ We chose this problem because academic literacy is a hidden barrier — and solv
 - **Knowledge Base:** Centralized academic rules and FAQs.  
 - **Minecraft-Themed UI:** Pixel-styled, friendly, gamified interface.  
 - **Context-Aware Chat:** Remembers previous queries and document uploads.  
-- **Integratable APIs:** Works with college portals, ERPs, and kiosks.
 
 
 ## Tech Stack
@@ -49,7 +48,7 @@ We chose this problem because academic literacy is a hidden barrier — and solv
 - **OCR:** Advanced text extraction  
 - **Frontend:** React + TailwindCSS  
 - **Backend:** Node.js / Python  
-- **Database:** Cloud-hosted KB  
+- **Database:** SQLite
 - **Deployment:** Cloud/containers  
 - **APIs:** Workflow & OCR APIs  
 
@@ -70,17 +69,19 @@ We chose this problem because academic literacy is a hidden barrier — and solv
 
 ## Bonus Challenges (From Our Mentor)
 
-- **Implementing chat history inside the assistant**  
-  *Maintaining conversation context across multiple queries.*
-
 - **Adding OCR language-switch in explanation & summary**  
   *Users should be able to switch the output language instantly (English → Bengali → Hindi).*
 
-- **Building a plugin (like a Chrome extension)**  
-  *The assistant should work on external educational websites (WBJEE, JEE Main, college portals) and translate academic content into any chosen language for easier understanding.*
+- **Building an extension** 
+  *The assistant should work on external educational websites (WBJEE, JEE Main, college portals) and translate academic content into any chosen language for easier understanding. Its different from other translator extension as it does not have any rate limit*
 
 ### How We Solved the Bonus Challenges  
-*(Add your final implemented solutions here)*  
+
+- **Instant OCR Language Switch**  
+  We built a dynamic translation layer on top of the OCR output, allowing users to switch between English, Bengali, and Hindi instantly — without re-uploading or reprocessing the document.
+
+- **Zero-Rate-Limit Extension Prototype**  
+  Our extension connects directly to our backend instead of public APIs, enabling unlimited translations, faster simplification, and smooth performance even on heavy academic websites.
 
 ---
 
