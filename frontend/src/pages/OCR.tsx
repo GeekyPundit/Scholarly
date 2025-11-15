@@ -182,6 +182,10 @@ const OCR = () => {
     setIsExplaining(true);
     const message = `Explain the file data below\n\n${extractedData[currentPage]}`;
     const languageCode = LANGUAGE_CODE_MAP[language];
+    
+    console.log("Language selected:", language);
+    console.log("Language code mapped:", languageCode);
+    console.log("Sending request with language code:", languageCode);
 
     try {
       const response = await fetch(`${localApiUrl}explain`, {
