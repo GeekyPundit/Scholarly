@@ -44,10 +44,75 @@ Scholarly acts as a middleman between academic documents and students, reducing 
 # Core Features
 
 ## Multilingual Academic Q&A
-- Ask any academic question in English, Hindi, Bengali, Odia, or mixed languages.  
-- Covers exam rules, form doubts, scholarship criteria, and general academic queries.  
-- Provides instant, accurate, student-friendly answers.
+Students can ask any academic question in English, Hindi, Bengali, Odia, or mixed languages.
+- Covers exam rules, scholarship criteria, form-related doubts, deadlines, and general academic procedures.
+- Handles code-mixed queries (Hinglish, Benglish) and informal student phrasing.
+- Provides instant, accurate, and easy-to-understand responses in the chosen language.
 
 ## OCR-Based Document Understanding
-- Upload forms, notices, guidelines, or PDFs.  
-- Extracts text using OCR, identifies key instructions, and rewrites them in clea
+Students can upload forms, notices, guidelines, or PDFs.
+- Extracts text using OCR and identifies key instructions, required documents, deadlines, and important fields.
+- Cleans noisy scans, tables, and stamps to improve accuracy.
+- Converts complex documents into simplified summaries and bullet-point explanations.
+
+## Step-by-Step Academic Guidance
+Scholarly provides clear, sequential guidance for complex tasks such as exam registration, re-evaluation, scholarships, backlog forms, and migration/TC processes.
+- Generates task-specific workflows.
+- Uses conditional logic (“If this → then do this”) for clarity.
+- Reduces errors and confusion during form submission.
+
+## Automated Document Simplification
+Transforms formal academic documents into plain language.
+- Removes jargon and redundant text.
+- Highlights what the student must do, by when, and why.
+- Generates examples wherever necessary.
+
+## Unified Academic Knowledge Base
+A centralized library of academic rules and commonly asked questions.
+- Organized into categories for easy navigation.
+- Provides concise reference cards for quick understanding.
+- Ensures consistency and reliability of information.
+
+## Language-First Interface
+Designed to support vernacular-medium learners.
+- One-click language switching.
+- Consistent tone and clarity across languages.
+- Useful for rural and first-generation students.
+
+## Context-Aware Conversation
+Maintains context during interactions.
+- Remembers recent queries.
+- Tracks uploaded document details.
+- Provides follow-up responses without repeating information.
+
+## Integratable System
+Can be embedded into:
+- College websites  
+- Student self-service kiosks  
+- ERP and academic portals  
+Using modular APIs for smooth institutional integration.
+
+---
+
+# User Workflow
+
+1. **Student initiates a query**  
+   The student asks a question related to exams, scholarships, or forms.
+
+2. **AI chatbot interprets intent**  
+   Scholarly detects the meaning of the query, identifies the student's need, and responds in their chosen language.
+
+3. **Student uploads documents (if required)**  
+   For form-related queries, the student uploads the PDF or image. The AI analyzes the content using OCR.
+
+4. **Student receives a simplified explanation**  
+   Scholarly converts the document or query response into a clear, simplified summary with examples.
+
+5. **AI generates step-by-step instructions**  
+   Scholarly outlines exactly what the student must do next, including required documents, deadlines, and corrections.
+
+6. **Student follows a guided workflow**  
+   The student proceeds through a structured, tailored workflow to complete their task correctly and confidently.
+
+---
+
