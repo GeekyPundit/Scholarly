@@ -5,7 +5,7 @@ import requests
 from urllib.parse import urlencode
 from dotenv import load_dotenv
 
-from database import init_db, get_db
+from database import init_db, get_db, save_chat_message, get_chat_history, delete_chat_history
 from auth_session import create_session, get_user_from_session, delete_session
 
 load_dotenv()
@@ -133,6 +133,63 @@ def api_logout():
     response = jsonify({"message": "logged out"})
     response.delete_cookie("session_id")
     return response
+
+
+@app.route("/chat/history", methods=["GET"])
+def get_chat_history_endpoint():
+    """Get chat history for the current user"""
+    session_id = request.cookies.get("session_id")
+    if not session_id:
+        return jsonify({"error": "Not authenticated"}), 401
+
+    user = get_user_from_session(session_id)
+    if not user:
+        return jsonify({"error": "Not authenticated"}), 401
+
+    user_id = user["id"]
+    limit = request.args.get("limit", default=100, type=int)
+    
+    history = get_chat_history(user_id, limit)
+    return jsonify({"chat_history": history}), 200
+
+
+@app.route("/chat/message", methods=["POST"])
+def save_chat_message_endpoint():
+    """Save a chat message to history"""
+    session_id = request.cookies.get("session_id")
+    if not session_id:
+        return jsonify({"error": "Not authenticated"}), 401
+
+    user = get_user_from_session(session_id)
+    if not user:
+        return jsonify({"error": "Not authenticated"}), 401
+
+    data = request.get_json()
+    if not data or "message" not in data or "sender" not in data:
+        return jsonify({"error": "Missing required fields: message, sender"}), 400
+
+    user_id = user["id"]
+    message = data["message"]
+    sender = data["sender"]
+
+    save_chat_message(user_id, message, sender)
+    return jsonify({"success": True, "message": "Message saved"}), 201
+
+
+@app.route("/chat/history", methods=["DELETE"])
+def delete_chat_history_endpoint():
+    """Delete all chat history for the current user"""
+    session_id = request.cookies.get("session_id")
+    if not session_id:
+        return jsonify({"error": "Not authenticated"}), 401
+
+    user = get_user_from_session(session_id)
+    if not user:
+        return jsonify({"error": "Not authenticated"}), 401
+
+    user_id = user["id"]
+    delete_chat_history(user_id)
+    return jsonify({"success": True, "message": "Chat history deleted"}), 200
 
 
 if __name__ == "__main__":
